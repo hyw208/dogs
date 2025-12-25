@@ -1,10 +1,13 @@
 # Plan: Scaffold a ''Hello World'' full-stack application
 
 ### Phase 1: Database Setup
-- [ ] Task: Set up database connection and define the 'messages' table using SQLModel.
-- [ ] Task: Create an Alembic migration to create the 'messages' table.
-- [ ] Task: Create a script to seed the 'messages' table with a 'hi' message.
-- [ ] Task: Write tests to verify database connection and data seeding.
+- [x] Task: Create a `docker-compose.yml` file and a helper script (`db.sh`) to manage the PostgreSQL database.
+- [x] Task: Define the `Message` SQLModel for the 'messages' table.
+- [x] Task: Set up the database connection.
+- [x] Task: Write tests for the database connection and the Message model.
+- [x] Task: Create an Alembic migration for the 'Message' table.
+- [x] Task: Create a script to seed the 'messages' table with a 'hi' message.
+- [~] Task: Write tests for data seeding.
 - [ ] Task: Conductor - User Manual Verification 'Database Setup' (Protocol in workflow.md)
 
 ### Phase 2: Backend (FastAPI) Setup

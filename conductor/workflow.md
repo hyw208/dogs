@@ -163,8 +163,9 @@ Before marking any task complete, verify:
 ### Daily Development
 ```bash
 # Example: Commands for common daily tasks (e.g., start dev server, run tests, lint, format)
-# e.g., for a Node.js project: npm run dev, npm test, npm run lint
-# e.g., for a Go project: go run main.go, go test ./..., go fmt ./...
+./db.sh start
+./test_backend.sh
+./db_migrate.sh revision "Your migration message"
 ```
 
 ### Before Committing

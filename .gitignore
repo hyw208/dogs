@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.env
+.env*
+.venv/
+venv/
+
+# Poetry
+poetry.lock
+
+# Alembic
+alembic/versions/*.pyc
+
+# FastAPI
+instance/
+
+# Node/Vite/React
+node_modules/
+build/
+dist/
+frontend/dist/
+frontend/node_modules/
+
+# VS Code
+.vscode/
+
+# macOS
+.DS_Store
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# Misc
+*.sqlite3
+*.db
+*.swp
+*.swo
+*.bak
+*.tmp
+
+# Test/coverage
+.coverage
+htmlcov/
+pytest_cache/
+
+# System
+Thumbs.db
+.idea/
+*.iml
+
+# Conductor
+conductor/
