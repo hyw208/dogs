@@ -1,8 +1,8 @@
 from typing import Generator
 from sqlmodel import Session, create_engine, SQLModel
 import os
-# Import models to ensure they are registered with SQLModel
-from app.models import Message
+# Import all models to ensure they are registered with SQLModel
+from app.models import *
 
 
 # Database connection URLs for different environments

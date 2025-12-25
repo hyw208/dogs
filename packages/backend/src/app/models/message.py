@@ -5,7 +5,6 @@ from sqlmodel import Field, SQLModel
 from sqlalchemy import Column
 from sqlalchemy.types import JSON
 
-
 class Message(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
     user_id: Optional[str] = Field(default=None, index=True)
