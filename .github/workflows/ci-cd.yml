@@ -1,0 +1,77 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    branches:
+      - main
+      - master
+
+jobs:
+  test:
+    name: Run Unit Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Poetry
+        run: |
+          curl -sSL https://install.python-poetry.org | python3 -
+          echo "$HOME/.local/bin" >> $GITHUB_PATH
+      
+      - name: Install dependencies
+        run: |
+          cd packages/backend
+          poetry install --with dev
+      
+      - name: Run unit tests
+        run: |
+          cd packages/backend
+          PYTHONPATH=./src poetry run pytest
+  
+  build-and-deploy:
+    name: Build Docker Image and Deploy to Render
+    needs: test
+    runs-on: ubuntu-latest
+    # Only run on pushes to main/master branch (not on PRs)
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      
+      - name: Build Docker image
+        run: |
+          docker build -t dogs-app:latest -f packages/Dockerfile packages/
+      
+      - name: Deploy to Render
+        env:
+          RENDER_API_KEY: ${{ secrets.RENDER_API_KEY }}
+          RENDER_SERVICE_ID: ${{ secrets.RENDER_SERVICE_ID }}
+        run: |
+          if [ -z "$RENDER_API_KEY" ] || [ -z "$RENDER_SERVICE_ID" ]; then
+            echo "Warning: RENDER_API_KEY or RENDER_SERVICE_ID not set. Skipping deployment."
+            echo "Please add these secrets to your GitHub repository settings."
+            exit 0
+          fi
+          
+          # Trigger Render deployment
+          curl -X POST "https://api.render.com/v1/services/${RENDER_SERVICE_ID}/deploys" \
+            -H "Authorization: Bearer ${RENDER_API_KEY}" \
+            -H "Content-Type: application/json" \
+            -d '{"clearCache": false}'
+          
+          echo "Deployment triggered successfully!"
