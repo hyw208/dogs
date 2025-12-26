@@ -25,8 +25,8 @@ dist/
 frontend/dist/
 frontend/node_modules/
 
-# VS Code
-.vscode/
+# # VS Code
+# .vscode/
 
 # macOS
 .DS_Store
