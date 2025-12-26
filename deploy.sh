@@ -8,5 +8,5 @@ echo "--- Starting Deployment ---"
 
 echo "--- Deployment Complete ---"
 
-echo "#### test result: $fail"
+echo "#### deployment result: $fail"
 exit $fail
