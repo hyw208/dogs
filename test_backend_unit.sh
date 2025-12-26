@@ -8,3 +8,4 @@ PYTHONPATH=./src poetry run pytest
 
 status=$?
 echo "Exit code: $status"
+exit $status
