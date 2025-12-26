@@ -1,36 +1,11 @@
 import pytest
-from sqlmodel import Session, SQLModel, create_engine
-from sqlalchemy import event
-from sqlalchemy.engine import Engine
+from sqlmodel import Session, SQLModel
+# SQLModel, create_engine and related db setup moved to conftest.py
 
 from app.models import Message
 # from backend.app.db import get_session, DATABASE_URL # No longer directly using these for unit tests
 
-# Use a separate test database connection string for tests
-# Connect to localhost:5432 for tests as they run on the host machine
-# TEST_DATABASE_URL = "postgresql://user:password@localhost:5432/dogs"
-
-# Use an in-memory SQLite database for fast unit tests
-TEST_DATABASE_URL = "sqlite:///:memory:"
-
-# Create the SQLModel engine for tests
-test_engine = create_engine(TEST_DATABASE_URL, echo=False)
-
-# Enable foreign key enforcement for SQLite
-@event.listens_for(Engine, "connect")
-def set_sqlite_pragma(dbapi_connection, connection_record):
-    cursor = dbapi_connection.cursor()
-    cursor.execute("PRAGMA foreign_keys=ON")
-    cursor.close()
-
-@pytest.fixture(name="session")
-def session_fixture():
-    # SQLModel.metadata.clear() # Removed as it interferes with model registration
-    SQLModel.metadata.create_all(test_engine) # Create tables for the test
-    with Session(test_engine) as session:
-        yield session
-    SQLModel.metadata.drop_all(test_engine) # Drop tables after the test
-
+# The 'session' fixture is now provided by packages/backend/tests/conftest.py
 
 def test_get_session(session: Session):
     """

@@ -1,0 +1,1 @@
+This folder is automatically overwritten during frontend builds. Do not add or store any files here manually.
