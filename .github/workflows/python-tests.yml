@@ -27,6 +27,7 @@ jobs:
           poetry install
 
       - name: Run unit tests
-        run: |
-          cd packages/backend
-          PYTHONPATH=./src poetry run pytest
+        run: ./test_backend_unit.sh
+
+      - name: Build Docker image
+        run: ./build_image.sh
