@@ -25,11 +25,20 @@ echo $SERVER_PID > fastapi_server.pid
 echo "FastAPI application started in background (PID $SERVER_PID, written to fastapi_server.pid). Access at http://localhost:8000"
 
 # Wait for the server to be ready, -s will keep trying till it gets a response
+max_attempts=10
+attempt=1
 until curl -s http://localhost:8000/api/messages > /dev/null; do
-	echo "Waiting for FastAPI to be ready..."
-	sleep 3
+    if [ $attempt -ge $max_attempts ]; then
+        echo "FastAPI did not become ready after $max_attempts attempts. Aborting."
+        exit 1
+    fi
+    echo "Waiting for FastAPI to be ready... (attempt $attempt/$max_attempts)"
+    attempt=$((attempt + 1))
+    sleep 3
 done
 echo "FastAPI is ready."
+
+
 
 echo "--- E2E Backend Setup Ready ---"
 
