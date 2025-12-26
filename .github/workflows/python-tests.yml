@@ -30,4 +30,21 @@ jobs:
         run: ./test_backend_unit.sh
 
       - name: Build Docker image
+        if: success()
         run: ./build_image.sh
+
+      - name: Start services
+        if: success()
+        run: docker-compose up
+
+      - name: Run E2E tests
+        if: success()
+        run: ./test_backend_e2e_docker.sh
+
+      - name: Stop services
+        if: always()
+        run: docker-compose down -v
+
+      - name: Deploy
+        if: success()  # Only runs if all previous non-cleanup steps succeeded
+        run: ./deploy.sh

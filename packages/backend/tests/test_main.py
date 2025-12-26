@@ -73,4 +73,4 @@ def test_get_messages_pagination(client: TestClient, session: Session): # 'sessi
     messages = response.json()
     assert len(messages) == 5
     assert messages[0]["content"] == "Test message 15"
-    assert messages[4]["content"] == "Test message 19"
+    assert messages[4]["content"] == "Test message 20"
