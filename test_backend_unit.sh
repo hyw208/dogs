@@ -4,4 +4,5 @@
 set -e
 
 echo "Running backend tests..."
-cd packages/backend && PYTHONPATH=./src poetry run pytest
+cd packages/backend
+PYTHONPATH=./src poetry run pytest

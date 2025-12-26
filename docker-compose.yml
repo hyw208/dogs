@@ -2,7 +2,7 @@ version: '3.8'
 services:
   db:
     image: postgres:13
-    container_name: dogs-db
+    container_name: db
     environment:
       - POSTGRES_USER=user
       - POSTGRES_PASSWORD=password
@@ -12,6 +12,30 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+
+  # it's just to register data models and seed initial data if needed
+  migration:
+    image: dogs-app:latest
+    container_name: migration
+    environment:
+      - APP_ENV=docker
+      - PYTHONPATH=/app/packages/backend/src
+    depends_on:
+      - db
+    command: poetry run alembic upgrade head
+    
+  app:
+    image: dogs-app:latest
+    container_name: app
+    environment:
+      - APP_ENV=docker
+      - PYTHONPATH=/app/packages/backend/src
+    ports:
+      - "8000:8000"
+    command: poetry run uvicorn src.app.main:app --host 0.0.0.0 --port 8000
+    depends_on:
+      - migration
+      - db
 
 volumes:
   postgres_data:

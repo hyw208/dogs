@@ -7,8 +7,8 @@ from app.models import *
 
 # Database connection URLs for different environments
 DATABASE_URLS = {
-    "docker": "postgresql://user:password@db:5432/dogs", # For when the app runs inside Docker
     "local": "postgresql://user:password@localhost:5432/dogs", # For local development/testing on host
+    "docker": "postgresql://user:password@db:5432/dogs", # For when the app runs inside Docker
     # Add other environments (dev, test, prod) here as needed
 }
 

@@ -7,12 +7,12 @@
 - [x] Task: Write tests for the database connection and the Message model.
 - [x] Task: Create an Alembic migration for the 'Message' table.
 - [x] Task: Create a script to seed the 'messages' table with a 'hi' message.
-- [~] Task: Write tests for data seeding.
-- [ ] Task: Conductor - User Manual Verification 'Database Setup' (Protocol in workflow.md)
+- [x] Task: Write tests for data seeding.
+- [x] Task: Conductor - User Manual Verification 'Database Setup' (Protocol in workflow.md)
 
 ### Phase 2: Backend (FastAPI) Setup
-- [ ] Task: Create a FastAPI application.
-- [ ] Task: Create an endpoint '/api/messages' that queries the database and returns the list of messages.
+- [x] Task: Create a FastAPI application.
+- [~] Task: Create an endpoint '/api/messages' that queries the database and returns the list of messages.
 - [ ] Task: Write tests for the '/api/messages' endpoint.
 - [ ] Task: Conductor - User Manual Verification 'Backend (FastAPI) Setup' (Protocol in workflow.md)
 

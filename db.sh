@@ -6,7 +6,7 @@
 set -e
 
 # --- Configuration ---
-DB_CONTAINER="dogs-db"
+DB_CONTAINER="db"
 DB_NAME="dogs"
 DB_USER="user"
 BACKUP_DIR="./backups"
