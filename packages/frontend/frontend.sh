@@ -74,8 +74,11 @@ case "$cmd" in
     npm test -- --runInBand
     ;;
   e2e)
-    start_dev_server
-    trap 'kill "$DEV_PID" >/dev/null 2>&1 || true' EXIT
+    # Check if CYPRESS_BASE_URL is set, otherwise start dev server
+    if [ -z "${CYPRESS_BASE_URL:-}" ]; then
+      start_dev_server
+      trap 'kill "$DEV_PID" >/dev/null 2>&1 || true' EXIT
+    fi
     npm run cypress:run
     ;;
   clean)
