@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This script sets up the docker db and backend API for end-to-end testing.
 
-set -e
+set -euo pipefail
 
 echo "--- Starting E2E Backend Setup ---"
 

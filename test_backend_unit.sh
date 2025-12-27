@@ -1,6 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This script sets up the backend environment for unit testing.
 set +e
+set -o pipefail
 
 echo "Running backend tests..."
 cd packages/backend

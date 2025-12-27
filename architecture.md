@@ -20,11 +20,15 @@ The project will adopt a monorepo-like structure, separating the frontend and ba
 │   │   ├── alembic.ini
 │   │   └── pyproject.toml
 │   └── frontend/
-│       ├── src/                 # React source code, components, etc.
-│       ├── tests/               # React unit tests
+│       ├── src/                 # React source code, components, and co-located unit tests (*.test.tsx)
+│       ├── cypress/             # Cypress e2e tests
+│       │   └── e2e/             # E2e test specs
+│       ├── public/              # Static assets
 │       ├── package.json         # Frontend dependencies and scripts
 │       ├── vite.config.ts       # Vite configuration
-│       └── ... (other frontend files)
+│       ├── jest.config.ts       # Jest configuration
+│       ├── cypress.config.ts    # Cypress configuration
+│       └── frontend.sh          # Helper script for frontend tasks (install, build, test, e2e, clean)
 ├── docker-compose.yml       # Defines Docker services (e.g., PostgreSQL)
 ├── Dockerfile               # Multi-stage Docker build for the application
 ├── db.sh                    # Helper script for database management
@@ -34,6 +38,11 @@ The project will adopt a monorepo-like structure, separating the frontend and ba
 │   └── ...
 └── ... (other root-level files like .gitignore, README.md)
 ```
+
+**Testing Conventions:**
+- **Frontend unit tests** (Jest/React Testing Library): Co-located with source files (e.g., `App.test.tsx` next to `App.tsx` in `src/`). This follows standard React conventions, makes tests easier to find and maintain, and works seamlessly with Jest's auto-discovery.
+- **Frontend e2e tests** (Cypress): Organized in `cypress/e2e/` directory.
+- **Backend tests** (pytest): Organized in `tests/` directory separate from source code.
 
 ## Local Development Environment
 
@@ -163,6 +172,17 @@ This multi-stage Dockerfile ensures that:
 *   The frontend is built efficiently in isolation.
 *   Only the necessary build artifacts (static files) are copied into the final backend image, keeping the image size minimal.
 *   The final image is self-contained, serving both the API and the React application via FastAPI.
+
+## Helper Scripts Organization
+
+**Root-level scripts** (`db.sh`, `db_migrate.sh`, `deploy.sh`, etc.):
+*   Orchestration/ops for the whole system (docker, database migrations, service startup).
+*   Placed at the root to be reachable from CI pipelines and for easy access without needing to navigate into package directories.
+
+**Package-level scripts** (`packages/frontend/frontend.sh`):
+*   Scoped to a single package (e.g., UI build, test, dev server).
+*   Kept inside the package directory to avoid accidental root-level runs and maintain clear boundaries.
+*   Example: `frontend.sh` is a helper for frontend-only tasks (install, build, test, e2e, clean).
 
 ## Frontend Build and Backend Serving Strategy
 

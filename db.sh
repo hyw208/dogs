@@ -1,9 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This script manages the PostgreSQL database container using Docker.
 # For macOS users, Colima is the recommended environment for running Docker.
 # Please ensure Colima is started (`colima start`) before using this script.
 
-set -e
+set -euo pipefail
 
 # --- Configuration ---
 DB_CONTAINER="db"
@@ -82,7 +82,8 @@ function usage() {
 # --- Main ---
 check_docker
 
-case "$1" in
+cmd=${1:-}
+case "$cmd" in
   start)
     start
     ;;

@@ -22,8 +22,12 @@ instance/
 node_modules/
 build/
 dist/
-frontend/dist/
-frontend/node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.dist
+.dist-ssr
 
 # # VS Code
 # .vscode/
@@ -46,7 +50,12 @@ docker-compose.override.yml
 # Test/coverage
 .coverage
 htmlcov/
+coverage/
 pytest_cache/
+
+# Cypress
+cypress/screenshots
+cypress/videos
 
 # System
 Thumbs.db

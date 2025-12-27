@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # This script runs Alembic commands using Poetry for the backend package.
 
-set -e
+set -euo pipefail
 
 # Parse arguments
 COMMAND=""

@@ -1,7 +1,8 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # if you want any test failure to fail all, use set -e, otherwise we will collect all failures using +e
 set +e
+set -o pipefail
 fail=0
 
 echo "--- Waiting for FastAPI to be ready ---"
