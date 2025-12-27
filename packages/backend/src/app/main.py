@@ -36,7 +36,8 @@ def get_messages(
 
 
 # Mount static assets (must be after API routes)
-app.mount("/assets", StaticFiles(directory=str(STATIC_DIR / "assets")), name="assets")
+if (STATIC_DIR / "assets").is_dir():
+    app.mount("/assets", StaticFiles(directory=str(STATIC_DIR / "assets")), name="assets")
 
 
 @app.get("/", response_class=HTMLResponse)
