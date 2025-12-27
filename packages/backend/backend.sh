@@ -42,6 +42,7 @@ build() {
 unit() {
   echo "Running backend unit tests..."
   poetry run pytest tests/ -v
+  return $?
 }
 
 start() {

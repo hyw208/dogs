@@ -38,6 +38,7 @@ build() {
 unit() {
   echo "Running frontend unit tests..."
   npm test -- --runInBand
+  return $?
 }
 
 start() {
